@@ -6,38 +6,32 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class listOfAnswers {
-    private WebDriver driver;
+    private final WebDriver driver;
 
     public listOfAnswers(WebDriver driver) {
         this.driver = driver;
     }
 
-    private By firstQuestion = By.xpath("//*[@id=\"root\"]/div/div/div[5]/div[2]/div/div[1]");
-    private By firstAnswer = By.xpath("//*[@id='accordion__panel-0']/p");
-    private By lastQuestion = By.xpath("//*[@id=\"accordion__heading-7\"]");
-    private By lastAnswer = By.xpath("//*[@id='accordion__panel-7']/p");
-    public void waitForLoadQuestions(){
+    private final By firstQuestion = By.xpath(".//div[@class='accordion__item']//div[contains(text(),'Сколько это стоит?')]");
+
+    public void waitForLoadQuestions() {
         new WebDriverWait(driver, 5)
                 .until(ExpectedConditions.visibilityOfElementLocated(firstQuestion));
     }
-    public void getIntoViewFirstQuestion() {
-        WebElement element = driver.findElement(firstQuestion);
+
+    public void getIntoViewQuestion(String question) {
+        String questionXpath = ".//div[@class='accordion__item']//div[contains(text(),'" + question + "')]";
+        WebElement element = driver.findElement(By.xpath(questionXpath));
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", element);
     }
-    public void getIntoViewLastQuestion() {
-        WebElement element = driver.findElement(lastQuestion);
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", element);
+
+    public void clickToGetAnswer(String question) {
+        String questionXpath = ".//div[@class='accordion__item']//div[contains(text(),'" + question + "')]";
+        driver.findElement(By.xpath(questionXpath)).click();
     }
-    public void clickToGetFirstAnswer(){
-        driver.findElement(firstQuestion).click();
+    public String getTextAnswer(String answer) {
+        String answerXpath = ".//div[@class='accordion__panel']//p[contains(text(),'" + answer + "')]";
+        return driver.findElement(By.xpath(answerXpath)).getText();
     }
-    public void clickToGetLastAnswer(){
-        driver.findElement(lastQuestion).click();
-    }
-    public String getTextFirstAnswer() {
-        return driver.findElement(firstAnswer).getText();
-    }
-    public String getTextLastAnswer() {
-        return driver.findElement(lastAnswer).getText();
-    }
+
 }
