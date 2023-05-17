@@ -1,3 +1,5 @@
+package orderFormTest;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -9,12 +11,11 @@ public class orderForm {
     public orderForm(WebDriver driver) {
         this.driver = driver;
     }
-    private final By nameField = By.xpath("//*[@id='root']/div/div[2]/div[2]/div[1]/input");
-    private final By surnameField = By.xpath("//*[@id='root']/div/div[2]/div[2]/div[2]/input");
-    private final By addressField = By.xpath("//*[@id='root']/div/div[2]/div[2]/div[3]/input");
-    //private String xpathUnderground = ".//div[@class='select-search__select']//*text()=\"
+    private final By nameField = By.xpath(".//input[@placeholder='* Имя']");
+    private final By surnameField = By.xpath(".//input[@placeholder='* Фамилия']");
+    private final By addressField = By.xpath(".//input[@placeholder='* Адрес: куда привезти заказ']");
     private final By undergroundStation = By.xpath(".//div[@class='select-search__value']");
-    private final By phoneNumberField = By.xpath("//*[@id='root']/div/div[2]/div[2]/div[5]/input");
+    private final By phoneNumberField = By.xpath(".//input[@placeholder='* Телефон: на него позвонит курьер']");
     private final By nextButton = By.xpath(".//button[text()='Далее']");
 
     public void setNameField(String name) {
